@@ -15,6 +15,8 @@
 
 ### running on simulator ( IOS )
   - cd projectx
-  - react-native run-ios
+  - run `react-native run-ios`
 
   This opens up the app on IOS simulator.
+  
+More Info you can Refer [React Native Docs](https://facebook.github.io/react-native/docs/getting-started.html)
