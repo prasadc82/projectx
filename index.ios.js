@@ -12,8 +12,7 @@ export default class spareseat extends Component {
       <NavigatorIOS
           initialRoute={{
           component: Home,
-          title: 'Home',
-          navigationBarHidden: true,
+          title: 'Home'
         }}
         style={{flex: 1}}
         />

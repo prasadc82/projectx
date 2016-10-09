@@ -3,10 +3,13 @@ import {
   StyleSheet,
   View,
   Text,
-  DatePickerIOS
+  DatePickerIOS,
+  Heading
 } from 'react-native';
 
 import Branding from './branding.ios.js';
+import EndTrip from './endTrip.ios.js';
+import PickUps from './pickups.ios.js';
 
 export default class StartTrip extends Component {
 
@@ -20,7 +23,20 @@ export default class StartTrip extends Component {
 
   onDateChange = (date) => {
     this.setState({date: date});
-  };  
+
+    if(this.props.destLocation) {
+      this.props.navigator.push({
+          title: 'End Trip Details',
+          component: EndTrip,
+          passProps: { destLocation: this.props.destLocation }
+      });
+    } else {
+      this.props.navigator.push({
+          title: 'Pick Ups',
+          component: PickUps
+      });
+    }
+  }; 
 
   render () {
     return (
@@ -35,6 +51,13 @@ export default class StartTrip extends Component {
           </Text>
         </View>
         <View style={styles.datepicker}>
+          <Text style={{
+            textAlign: 'center',
+            fontSize: 18,
+            fontFamily: 'HelveticaNeue-Bold'
+          }}>
+           Departure Date:
+          </Text>
           <DatePickerIOS
             date={this.state.date}
             mode="datetime"
@@ -62,5 +85,6 @@ const styles = StyleSheet.create({
   },
   datepicker: {
     flex: 3,
+    justifyContent: 'flex-start'
   }
 });

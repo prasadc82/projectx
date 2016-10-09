@@ -16,12 +16,16 @@ export default class Trip extends Component {
     this.props.navigator.push({
         title: 'Trip Start Details',
         component: TripStart,
-        passProps: { startlocation:  'New York'}
+        passProps: { startlocation:  'New York' }
     });    
   }
 
   roundTrip() {
-    this.oneWay();
+    this.props.navigator.push({
+        title: 'Trip Start Details',
+        component: TripStart,
+        passProps: { startlocation:  'New York', destLocation: 'Buffalo' }
+    });    
   }
   
   render() {
@@ -56,43 +60,25 @@ export default class Trip extends Component {
           >
           </TextInput>
         </View>
-        <View style={styles.trip}>
+        <View style={styles.tripText}>
           <Text>
             Is this one-way or round-trip?
           </Text>
         </View>
-        <View style={styles.tripButtons}>
+        <View style={styles.tripButtonsContainer}>
           <TouchableOpacity
            onPress={() => this.oneWay()}
           >
-            <Text style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingLeft: 30,
-              paddingRight: 30,
-              backgroundColor: '#475d67',
-              borderColor: 'black',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              color: 'white',
-            }}
-            >One way</Text>
+            <Text style={styles.tripButton}>
+              One way
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingLeft: 30,
-              paddingRight: 30,
-              backgroundColor: '#475d67',
-              padding: 20,
-              marginLeft:10,
-              borderColor: 'black',
-              borderStyle: 'solid',
-              borderWidth: 1,
-              color: 'white',
-  
-          }}>Round Trip</Text>
+          <TouchableOpacity
+            onPress={() => this.roundTrip()}
+          >
+            <Text style={[styles.tripButton, styles.roundtripButton]}>
+              Round Trip
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -131,13 +117,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#9a9292',
     borderWidth: 1
   },
-  trip: {
+  tripText: {
     flex: 1,
     backgroundColor: '#b1ccf7',
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  tripButtons: {
+  tripButtonsContainer: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: '#b1ccf7',
@@ -145,10 +131,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10
   },
-  buttonText: {
-    fontSize: 20,
-    fontFamily: 'HelveticaNeue-Bold',
-    textAlign: 'center',
+  tripButton: {
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 30,
@@ -157,6 +140,9 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
-    color: 'white',
+    color: 'white',   
+  },
+  roundtripButton: {
+    marginLeft: 10
   }
 });
