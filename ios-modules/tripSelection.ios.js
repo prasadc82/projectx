@@ -43,7 +43,7 @@ export default class Trip extends Component {
           </Text>
         </View>
         <View style={styles.source}>
-          <Text>
+          <Text style={styles.text}>
             Where are you departing from?
           </Text>
           <TextInput
@@ -51,7 +51,7 @@ export default class Trip extends Component {
            placeholder="New York"
           >
           </TextInput>
-          <Text>
+          <Text style={[styles.text, styles.textDest]}>
             Where are you travelling to?
           </Text>
           <TextInput
@@ -61,7 +61,7 @@ export default class Trip extends Component {
           </TextInput>
         </View>
         <View style={styles.tripText}>
-          <Text>
+          <Text style={styles.text}>
             Is this one-way or round-trip?
           </Text>
         </View>
@@ -89,10 +89,10 @@ export default class Trip extends Component {
 const styles = StyleSheet.create({
   outer:{
     flex: 1,
-    backgroundColor: '#b1ccf7',
+    backgroundColor: '#c6d6f3',
   },
   greeting: {
-    flex: 2,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNeue-Bold'
   },
   source: {
-    flex: 2,
-    justifyContent: 'center',
+    flex: 0.35,
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
   textInput: {
@@ -114,35 +114,42 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textAlign: 'center',
     borderColor: 'gray',
-    backgroundColor: '#9a9292',
+    backgroundColor: '#ccc9c9',
     borderWidth: 1
   },
+  text: {
+    fontSize: 20,
+    fontFamily: 'HelveticaNeue-Bold'
+  },
+  textDest: {
+    marginTop: 10
+  },
   tripText: {
-    flex: 1,
-    backgroundColor: '#b1ccf7',
+    flex: 0.1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   tripButtonsContainer: {
-    flex: 1,
+    flex: 0.2,
     flexDirection: 'row',
-    backgroundColor: '#b1ccf7',
     justifyContent: 'center',
     alignItems: 'flex-start',
     padding: 10
   },
   tripButton: {
+    marginTop: 10,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: '#475d67',
+    backgroundColor: '#a59898',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
     color: 'white',   
   },
   roundtripButton: {
-    marginLeft: 10
+    marginLeft: 10,
+    backgroundColor: '#3c3636',
   }
 });

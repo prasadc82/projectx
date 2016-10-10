@@ -14,6 +14,8 @@ export default class PickUps extends Component {
     return (
       <View style={styles.outer}>
         <Branding/>
+        <View style={{flex: 0.75}}>
+        </View>
       </View>
     );
   } 
@@ -22,6 +24,6 @@ export default class PickUps extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    backgroundColor: '#b1ccf7'
+    backgroundColor: '#c6d6f3'
   }
 });

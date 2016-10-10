@@ -59,7 +59,7 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   outer:{
     flex: 1,
-    backgroundColor: '#b1ccf7',
+    backgroundColor: '#c6d6f3',
   },
   buttontext: {
     fontSize: 20,
@@ -69,23 +69,23 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: '#475d67',
+    backgroundColor: '#33353a',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
     color: 'white',
   },
   greeting: {
-    flex: 1.5,
+    flex: 0.25,
     justifyContent: 'center',
     alignItems: 'center',
   },
   greetingtext: {
-    fontSize: 22,
+    fontSize: 25,
     fontFamily: 'HelveticaNeue-Bold'
   },
   container: {
-    flex: 4,
+    flex: 0.5,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
     width: 165,
   },
   passenger: {
-    backgroundColor: '#8b99af'
+    backgroundColor: '#ccc9c9',
+    color: '#33353a'
   },
   welcome: {
     fontSize: 20,

@@ -62,10 +62,10 @@ export default class EndTrip extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    backgroundColor: '#b1ccf7'
+    backgroundColor: '#c6d6f3'
   },
   textcontainer: {
-    flex: 1,
+    flex: 0.2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   datepicker: {
-    flex: 3,
+    flex: 0.55,
   }
 });

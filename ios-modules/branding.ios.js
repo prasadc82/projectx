@@ -19,10 +19,10 @@ export default class Branding extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1.5,
+    flex: 0.25,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: '#b1ccf7',
+    backgroundColor: '#c6d6f3',
   },
   headertext: {
     fontSize: 20,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: '#475d67',
+    backgroundColor: '#33353a',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
