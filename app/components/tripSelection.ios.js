@@ -12,19 +12,25 @@ import TripStart from './startTrip.ios.js';
 
 export default class Trip extends Component {  
   
+  constructor(props) {
+    super(props)
+  }
+
   oneWay() {
+    this.props.setTripType('One Way');
     this.props.navigator.push({
         title: 'Trip Start Details',
         component: TripStart,
-        passProps: { startlocation:  'New York' }
+        passProps: {...this.props}
     });    
   }
 
   roundTrip() {
+    this.props.setTripType('Round Trip');
     this.props.navigator.push({
         title: 'Trip Start Details',
         component: TripStart,
-        passProps: { startlocation:  'New York', destLocation: 'Buffalo' }
+        passProps: {...this.props}
     });    
   }
   
@@ -49,6 +55,8 @@ export default class Trip extends Component {
           <TextInput
            style={styles.textInput}
            placeholder="New York"
+           value={this.props.trip.tripSource}
+           onBlur={(text) => this.props.setTripSource(text)}
           >
           </TextInput>
           <Text style={[styles.text, styles.textDest]}>
@@ -57,6 +65,8 @@ export default class Trip extends Component {
           <TextInput
            style={styles.textInput}
            placeholder="Buffalo"
+           value={this.props.trip.tripDestination}
+           onBlur={(text) => this.props.setTripDestination(text)}
           >
           </TextInput>
         </View>

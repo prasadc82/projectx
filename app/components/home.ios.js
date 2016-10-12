@@ -9,16 +9,23 @@ import {
 import Trip from './tripSelection.ios.js';
 import Branding from './branding.ios.js';
 
-export default class Home extends Component {  
+export default class Home extends Component {
+
+  constructor(props){
+    super(props)
+  }
 
   driverTripPage() {
+    this.props.setTripBy('DRIVER');
     this.props.navigator.push({
         title: 'Trip Details',
         component: Trip,
+        passProps: {...this.props}
     });
   };
 
   passengerTripPage() {
+    this.props.setTripType('PASSENGER');
   }
 
   render() {

@@ -3,30 +3,42 @@ import {
   StyleSheet,
   View,
   Text,
-  DatePickerIOS
+  DatePickerIOS,
+  Heading
 } from 'react-native';
 
 import Branding from './branding.ios.js';
+import EndTrip from './endTrip.ios.js';
 import PickUps from './pickups.ios.js';
 
-export default class EndTrip extends Component {
+export default class StartTrip extends Component {
 
-  static defaultProps = {
-    date: new Date()
-  };
-
-  state = {
-    date: this.props.date
-  };
+  constructor(props){
+    super(props)
+    
+    if (!this.props.trip.tripStartDateTime) {
+      this.props.setTripStartDateTime(String(new Date()));
+    }
+  }
 
   onDateChange = (date) => {
-    this.setState({date: date});
     
-    this.props.navigator.push({
-        title: 'Pick Ups',
-        component: PickUps
-    });
-  };  
+    this.props.setTripStartDateTime(String(date));
+
+    if(this.props.trip.tripType === 'Round Trip') {
+      this.props.navigator.push({
+          title: 'End Trip Details',
+          component: EndTrip,
+          passProps: {...this.props}
+      });
+    } else {
+      this.props.navigator.push({
+          title: 'Pick Ups',
+          component: PickUps,
+          passProps: {...this.props}
+      });
+    }
+  }; 
 
   render () {
     return (
@@ -34,10 +46,10 @@ export default class EndTrip extends Component {
         <Branding/>
         <View style={styles.textcontainer}>
           <Text style={styles.text}>
-            And, When you planning
+            When are you planning
           </Text>
           <Text style={styles.text}>
-            leaving {this.props.destLocation}?
+            on leaving {this.props.startlocation}?
           </Text>
         </View>
         <View style={styles.datepicker}>
@@ -46,10 +58,10 @@ export default class EndTrip extends Component {
             fontSize: 18,
             fontFamily: 'HelveticaNeue-Bold'
           }}>
-           Return Date:
+           Departure Date:
           </Text>
           <DatePickerIOS
-            date={this.state.date}
+            date={new Date(this.props.trip.tripStartDateTime)}
             mode="datetime"
             onDateChange={this.onDateChange}
           />        
@@ -75,5 +87,6 @@ const styles = StyleSheet.create({
   },
   datepicker: {
     flex: 0.55,
+    justifyContent: 'flex-start'
   }
 });

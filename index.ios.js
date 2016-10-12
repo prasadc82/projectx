@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  NavigatorIOS
+  AppRegistry
 } from 'react-native';
 
-import Home from './ios-modules/home.ios.js'; 
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, combineReducers, compose} from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
 
-export default class spareseat extends Component {  
-  render() {
-    return (
-      <NavigatorIOS
-          initialRoute={{
-          component: Home,
-          title: 'Home'
-        }}
-        style={{flex: 1}}
-        />
-    );
-  }
+import reducer from './app/reducers'
+import AppContainer from './app/containers/appContainer'
+
+const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
+
+function configureStore(initialState) {
+  const enhancer = compose(
+    applyMiddleware(
+      thunkMiddleware, // lets us dispatch() functions
+      loggerMiddleware,
+    ),
+  );
+  return createStore(reducer, initialState, enhancer);
 }
 
-AppRegistry.registerComponent('spareseat', () => spareseat);
+const store = configureStore({});
+
+const App = () => (
+  <Provider store={store}>
+    <AppContainer/>
+  </Provider>
+) 
+
+AppRegistry.registerComponent('spareseat', () => App);
