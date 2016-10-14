@@ -18,5 +18,9 @@
   - run `react-native run-ios`
 
   This opens up the app on IOS simulator.
-  
-More Info you can Refer [React Native Docs](https://facebook.github.io/react-native/docs/getting-started.html)
+
+### References
+
+- More Info you can Refer [React Native Docs](https://facebook.github.io/react-native/docs/getting-started.html)
+- Info on [React Native Maps](https://github.com/airbnb/react-native-maps)
+- Info on installing & Troubleshooting [React Native Maps](https://github.com/airbnb/react-native-maps/blob/master/docs/installation.md)
