@@ -7,94 +7,12 @@ import {
   View
 } from 'react-native';
 
+import { Control, Errors } from 'react-redux-form/native';
+
 import Branding from './branding.ios.js';
 import TripStart from './startTrip.ios.js';
 
-export default class Trip extends Component {  
-  
-  constructor(props) {
-    super(props)
-  }
-
-  oneWay() {
-    this.props.setTripType('One Way');
-    this.props.navigator.push({
-        title: 'Trip Start Details',
-        component: TripStart,
-        passProps: {...this.props}
-    });    
-  }
-
-  roundTrip() {
-    this.props.setTripType('Round Trip');
-    this.props.navigator.push({
-        title: 'Trip Start Details',
-        component: TripStart,
-        passProps: {...this.props}
-    });    
-  }
-  
-  render() {
-    let user = 'Prasad';
-
-    return (
-      <View style={styles.outer}>
-        <Branding/>
-        <View style={styles.greeting}>
-          <Text style={styles.greetingtext}>
-            Ok, great! Tell us a little bit 
-          </Text>
-          <Text style={styles.greetingtext}>
-            about your trip 
-          </Text>
-        </View>
-        <View style={styles.source}>
-          <Text style={styles.text}>
-            Where are you departing from?
-          </Text>
-          <TextInput
-           style={styles.textInput}
-           placeholder="New York"
-           value={this.props.trip.tripSource}
-           onBlur={(text) => this.props.setTripSource(text)}
-          >
-          </TextInput>
-          <Text style={[styles.text, styles.textDest]}>
-            Where are you travelling to?
-          </Text>
-          <TextInput
-           style={styles.textInput}
-           placeholder="Buffalo"
-           value={this.props.trip.tripDestination}
-           onBlur={(text) => this.props.setTripDestination(text)}
-          >
-          </TextInput>
-        </View>
-        <View style={styles.tripText}>
-          <Text style={styles.text}>
-            Is this one-way or round-trip?
-          </Text>
-        </View>
-        <View style={styles.tripButtonsContainer}>
-          <TouchableOpacity
-           onPress={() => this.oneWay()}
-          >
-            <Text style={styles.tripButton}>
-              One way
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => this.roundTrip()}
-          >
-            <Text style={[styles.tripButton, styles.roundtripButton]}>
-              Round Trip
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-}
+const isRequired = (val) => val && val.length > 0;
 
 const styles = StyleSheet.create({
   outer:{
@@ -163,3 +81,96 @@ const styles = StyleSheet.create({
     backgroundColor: '#3c3636',
   }
 });
+
+export default class Trip extends Component {
+  
+  constructor(props) {
+    super(props)
+  }
+
+  oneWay() {
+    // this.props.setTripType('One Way');
+    // this.props.navigator.push({
+    //     title: 'Trip Start Details',
+    //     component: TripStart,
+    //     passProps: {...this.props}
+    // });    
+  }
+
+  roundTrip() {
+    // this.props.setTripType('Round Trip');
+    // this.props.navigator.push({
+    //     title: 'Trip Start Details',
+    //     component: TripStart,
+    //     passProps: {...this.props}
+    // });    
+  }
+
+  handleSubmit(data){
+    console.log('handle submit');
+    console.log(data);
+  };
+  
+  render() {
+    let user = 'Prasad';
+
+    return (
+      <View style={styles.outer}>
+        <Branding/>
+        <View style={styles.greeting}>
+          <Text style={styles.greetingtext}>
+            Ok, great! Tell us a little bit 
+          </Text>
+          <Text style={styles.greetingtext}>
+            about your trip 
+          </Text>
+        </View>
+        <View style={styles.source}>
+          <Text style={styles.text}>
+            Where are you departing from?
+          </Text>
+          <Control.TextInput 
+            style={styles.textInput}
+            name="tripStart"
+            model="trip.tripStart"
+            validators={{isRequired}}
+            placeholder="LA"/>
+            <Errors
+              show={{ touched: true, focus: false }}
+              model="trip.tripStart"
+              messages={{
+                isRequired: 'Please provide a first name.',
+              }}/>            
+          <Text style={[styles.text, styles.textDest]}>
+            Where are you travelling to?
+          </Text>
+          <Control.TextInput name="tripDest"
+            style={styles.textInput}
+            model="trip.tripDest"
+            placeholder="Phoneix"/>
+        </View>
+        <View style={styles.tripText}>
+          <Text style={styles.text}>
+            Is this one-way or round-trip?
+          </Text>
+        </View>
+        <View style={styles.tripButtonsContainer}>
+          <TouchableOpacity
+           onPress={() => this.oneWay()}
+          >
+            <Text style={styles.tripButton}>
+              One way
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.roundTrip()}
+          >
+            <Text style={[styles.tripButton, styles.roundtripButton]}>
+              Round Trip
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
