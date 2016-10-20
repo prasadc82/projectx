@@ -89,21 +89,21 @@ export default class Trip extends Component {
   }
 
   oneWay() {
-    // this.props.setTripType('One Way');
-    // this.props.navigator.push({
-    //     title: 'Trip Start Details',
-    //     component: TripStart,
-    //     passProps: {...this.props}
-    // });    
+    this.props.setTripType('One Way');
+    this.props.navigator.push({
+        title: 'Trip Start Details',
+        component: TripStart,
+        passProps: {...this.props}
+    });    
   }
 
   roundTrip() {
-    // this.props.setTripType('Round Trip');
-    // this.props.navigator.push({
-    //     title: 'Trip Start Details',
-    //     component: TripStart,
-    //     passProps: {...this.props}
-    // });    
+    this.props.setTripType('Round Trip');
+    this.props.navigator.push({
+        title: 'Trip Start Details',
+        component: TripStart,
+        passProps: {...this.props}
+    });    
   }
 
   handleSubmit(data){
@@ -132,12 +132,12 @@ export default class Trip extends Component {
           <Control.TextInput 
             style={styles.textInput}
             name="tripStart"
-            model="trip.tripStart"
+            model="deep.trip.tripStart"
             validators={{isRequired}}
             placeholder="LA"/>
             <Errors
               show={{ touched: true, focus: false }}
-              model="trip.tripStart"
+              model="deep.trip.tripStart"
               messages={{
                 isRequired: 'Please provide a first name.',
               }}/>            
@@ -146,7 +146,7 @@ export default class Trip extends Component {
           </Text>
           <Control.TextInput name="tripDest"
             style={styles.textInput}
-            model="trip.tripDest"
+            model="deep.trip.tripDest"
             placeholder="Phoneix"/>
         </View>
         <View style={styles.tripText}>

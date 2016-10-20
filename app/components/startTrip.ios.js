@@ -15,8 +15,8 @@ export default class StartTrip extends Component {
 
   constructor(props){
     super(props)
-    
-    if (!this.props.trip.tripStartDateTime) {
+
+    if (!this.props.trip.trip.tripStartDateTime) {
       this.props.setTripStartDateTime(String(new Date()));
     }
   }
@@ -61,7 +61,7 @@ export default class StartTrip extends Component {
            Departure Date:
           </Text>
           <DatePickerIOS
-            date={new Date(this.props.trip.tripStartDateTime)}
+            date={new Date(this.props.trip.trip.tripStartDateTime)}
             mode="datetime"
             onDateChange={this.onDateChange}
           />        

@@ -6,4 +6,11 @@ import { combineForms } from 'react-redux-form';
 //   tripReducer,
 // ));
 
-export default combineForms({trip: { }})
+// export default combineForms({trip: { }})
+
+export default combineReducers({
+  trip: combineReducers(Object.assign(tripReducer)),
+  deep: combineForms({
+    trip: { tripStart: '', tripDest: '' }
+  }, 'deep')
+});

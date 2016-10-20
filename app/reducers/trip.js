@@ -8,12 +8,12 @@ export const trip = createReducer({}, {
   [types.SET_TRIP_TYPE](state, action) {
     return Object.assign(state, { tripType: action.tripType }); 
   },
-  [types.SET_TRIP_SOURCE](state, action) {
-    return Object.assign(state, { tripSource: action.tripSource });
-  },
-  [types.SET_TRIP_DESTINATION](state, action) {
-    return Object.assign(state, { tripDestination: action.tripDestination });
-  },
+  // [types.SET_TRIP_SOURCE](state, action) {
+  //   return Object.assign(state, { tripSource: action.tripSource });
+  // },
+  // [types.SET_TRIP_DESTINATION](state, action) {
+  //   return Object.assign(state, { tripDestination: action.tripDestination });
+  // },
   [types.SET_TRIP_STARTDATETIME](state, action) {
     return Object.assign(state, { tripStartDateTime: action.tripStartDateTime });
   },

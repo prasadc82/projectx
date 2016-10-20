@@ -28,10 +28,7 @@ class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
-  return {
-    trip: state.trip
-  };
+  return state;
 }
 
 function mapDispatchToProps(dispatch) {

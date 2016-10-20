@@ -14,19 +14,19 @@ export function setTripType(tripType) {
   }
 }
 
-export function setTripSource(src) {
-  return {
-    type: types.SET_TRIP_SOURCE,
-    tripSource: src.nativeEvent.text
-  }
-}
+// export function setTripSource(src) {
+//   return {
+//     type: types.SET_TRIP_SOURCE,
+//     tripSource: src.nativeEvent.text
+//   }
+// }
 
-export function setTripDestination(dest) {
-  return {
-    type: types.SET_TRIP_DESTINATION,
-    tripDestination: dest.nativeEvent.text
-  }
-}
+// export function setTripDestination(dest) {
+//   return {
+//     type: types.SET_TRIP_DESTINATION,
+//     tripDestination: dest.nativeEvent.text
+//   }
+// }
 
 export function setTripStartDateTime(startDate) {
   return {
