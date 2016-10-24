@@ -16,13 +16,19 @@ export default class StartTrip extends Component {
   constructor(props){
     super(props)
 
-    if (!this.props.trip.trip.tripStartDateTime) {
+    console.log('starttrip pickup')
+    console.log(props)
+
+    if (!this.props.trip.tripStartDateTime) {
       this.props.setTripStartDateTime(String(new Date()));
     }
   }
 
   onDateChange = (date) => {
     
+    console.log('starttrip pickup ...')
+    console.log(this.props)
+
     this.props.setTripStartDateTime(String(date));
 
     if(this.props.trip.tripType === 'Round Trip') {
@@ -61,7 +67,7 @@ export default class StartTrip extends Component {
            Departure Date:
           </Text>
           <DatePickerIOS
-            date={new Date(this.props.trip.trip.tripStartDateTime)}
+            date={new Date(this.props.trip.tripStartDateTime)}
             mode="datetime"
             onDateChange={this.onDateChange}
           />        

@@ -89,6 +89,14 @@ export default class Trip extends Component {
   }
 
   oneWay() {
+
+    this.props.setTouched('deep.trip.tripStart', true );    
+    this.props.setTouched('deep.trip.tripDest', true );
+    
+    if (!this.props.trip.tripStart) {
+      return;
+    }
+    
     this.props.setTripType('One Way');
     this.props.navigator.push({
         title: 'Trip Start Details',
@@ -98,6 +106,14 @@ export default class Trip extends Component {
   }
 
   roundTrip() {
+
+    this.props.setTouched('deep.trip.tripStart', true );
+    this.props.setTouched('deep.trip.tripDest', true );
+
+    if (!(this.props.trip.tripStart && this.props.trip.tripDest)) {
+      return;
+    }
+    
     this.props.setTripType('Round Trip');
     this.props.navigator.push({
         title: 'Trip Start Details',
@@ -139,15 +155,23 @@ export default class Trip extends Component {
               show={{ touched: true, focus: false }}
               model="deep.trip.tripStart"
               messages={{
-                isRequired: 'Please provide a first name.',
+                isRequired: 'Please provide a trip start location.',
               }}/>            
           <Text style={[styles.text, styles.textDest]}>
             Where are you travelling to?
           </Text>
-          <Control.TextInput name="tripDest"
+          <Control.TextInput
+            name="tripDest"
             style={styles.textInput}
             model="deep.trip.tripDest"
+            validators={{isRequired}}
             placeholder="Phoneix"/>
+            <Errors
+              show={{ touched: true, focus: false }}
+              model="deep.trip.tripDest"
+              messages={{
+                isRequired: 'Please provide a trip end location.',
+              }}/>
         </View>
         <View style={styles.tripText}>
           <Text style={styles.text}>

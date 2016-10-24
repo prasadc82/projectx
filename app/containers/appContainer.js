@@ -7,12 +7,13 @@ import {
   NavigatorIOS
 } from 'react-native';
 
-
 import Home from './../components/home.ios.js';
 
 class AppContainer extends Component {
   constructor(props) {
     super(props)
+    console.log('container props')
+    console.log(this.props)
   }  
   
   render() {
@@ -28,7 +29,9 @@ class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  return state;
+  return {
+    trip: Object.assign(state.trip.trip, state.deep.trip)
+  };
 }
 
 function mapDispatchToProps(dispatch) {
