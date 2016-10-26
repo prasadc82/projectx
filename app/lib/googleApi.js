@@ -1,4 +1,5 @@
-const googleUrl = 'https://maps.google.com/maps/api/geocode/json';
+const googleGeocodeUrl = 'https://maps.google.com/maps/api/geocode/json';
+const googleDirectionsUrl = 'https://maps.google.com/maps/api/directions/json';
 
 function format(raw) {
   const address = {
@@ -63,7 +64,7 @@ export default {
       return Promise.reject(new Error("invalid apiKey / position"));
     }
 
-    return this.geocodeRequest(`${googleUrl}?key=${apiKey}&latlng=${position.lat},${position.lng}`);
+    return this.geocodeRequest(`${googleGeocodeUrl}?key=${apiKey}&latlng=${position.lat},${position.lng}`);
   },
 
   geocodeAddress(apiKey, address) {
@@ -71,17 +72,37 @@ export default {
       return Promise.reject(new Error("invalid apiKey / address"));
     }
 
-    return this.geocodeRequest(`${googleUrl}?key=${apiKey}&address=${encodeURI(address)}`);
+    return this.geocodeRequest(`${googleGeocodeUrl}?key=${apiKey}&address=${encodeURI(address)}`);
+  },
+
+  directions(apiKey, origin, destination) {
+    if (!apiKey || !origin || !destination) {
+      return Promise.reject(new Error("invalid apiKey / origin / dest"));
+    }
+
+    return this.directionsRequest(`${googleDirectionsUrl}?key=${apiKey}&origin=${encodeURI(origin)}&destination=${encodeURI(destination)}&mode=driving`);
   },
 
   async geocodeRequest(url) {
     const res = await fetch(url);
     const json = await res.json();
 
-    if (!json.results || json.status !== 'OK') {
-      return Promise.reject(new Error(`geocoding error ${json.status}, ${json.error_message}`));
-    }
+    // if (!json.results || json.status !== 'OK') {
+    //   return Promise.reject(new Error(`geocoding error ${json.status}, ${json.error_message}`));
+    // }
 
     return json.results.map(format);
+  },
+
+  async directionsRequest(url) {
+    const res = await fetch(url);
+    const json = await res.json();
+
+    // if (!json.results || json.status !== 'OK') {
+    //   return Promise.reject(new Error(`geocoding error ${json.status}, ${json.error_message}`));
+    // }
+
+    return json;
   }
+  
 }

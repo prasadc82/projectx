@@ -11,7 +11,12 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import Branding from './branding.ios.js';
 import GoogleApi from './../lib/googleApi.js';
 
+import mapIcon from './../assets/map-icon.svg';
+
+var Polyline = require('polyline');
+
 const timeout = 1000;
+const timeout_directions = 2000;
 let animationTimeout;
 
 export default class PickUps extends Component {
@@ -19,6 +24,7 @@ export default class PickUps extends Component {
   constructor(props){
     let start = { key: 'start', title: 'Start', coordinate: {latitude: 33, longitude: -112}};
     let dest = { key: 'end', title: 'End', coordinate: {latitude: 34, longitude: -112}}, region = null;
+    let polylineCoords = [];
     
     super(props)
 
@@ -50,7 +56,8 @@ export default class PickUps extends Component {
       
       self.setState({
         markers: [start, dest],
-        region: region
+        region: region,
+        polylineCoords
       });
     });
 
@@ -70,6 +77,8 @@ export default class PickUps extends Component {
         markers: [start, dest],
         region: region
       });
+
+      self.setDirections();
     });
 
     region = {
@@ -81,7 +90,8 @@ export default class PickUps extends Component {
 
     this.state = {
       markers: [start, dest],
-      region
+      region,
+      polylineCoords
     }
   }
 
@@ -99,7 +109,34 @@ export default class PickUps extends Component {
 
   focusMap(markers, animated) {
     console.log(`Markers received to populate map: ${markers}`);
+    console.log(this.map);
     this.map.fitToSuppliedMarkers(markers, animated);
+  }
+
+  setDirections() {
+    let self = this;
+    let start = this.state.markers[0];
+    let dest = this.state.markers[1];
+    let region = this.state.region;
+    
+    GoogleApi.directions('AIzaSyDXt9TbRgjvXd_fq934ESi1-6jucbIIMdc', this.props.trip.tripStart, this.props.trip.tripDest).then(function(response){
+      let points = response.routes[0].overview_polyline.points;
+      let steps = Polyline.decode(points);
+      let polylineCoords = [];
+
+      for (let i=0; i < steps.length; i++) {
+        let tempLocation = {
+          latitude : steps[i][0],
+          longitude : steps[i][1]
+        }
+        polylineCoords.push(tempLocation);
+      }
+        self.setState({
+          markers: [start, dest],
+          region: region,
+          polylineCoords: polylineCoords
+        });
+    });
   }
 
   focus() {
@@ -122,10 +159,16 @@ export default class PickUps extends Component {
             style={styles.map}
             showsTraffic={true}
            >
+          <MapView.Polyline
+              coordinates={this.state.polylineCoords}
+              strokeWidth={3}
+              strokeColor="blue"
+            />
           {this.state.markers.map(marker => (
               <MapView.Marker
                 key={marker.key}
                 identifier={marker.key}
+                image={mapIcon}
                 coordinate={marker.coordinate}
                 title={marker.title}
               />
@@ -140,10 +183,12 @@ const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    top: 40,
+    bottom: 40
   },
 });
 
