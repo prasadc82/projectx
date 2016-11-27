@@ -20,4 +20,7 @@ export const trip = createReducer({}, {
   [types.SET_TRIP_RETURNDATETIME](state, action) {
     return Object.assign(state, { tripReturnDateTime: action.tripReturnDateTime });
   },
+  [types.SET_TRIP_POINT](state, action) {
+    return Object.assign(state, { tripPoint: action.tripPoint });
+  },
 });

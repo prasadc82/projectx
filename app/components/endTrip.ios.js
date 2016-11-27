@@ -14,7 +14,7 @@ export default class EndTrip extends Component {
   constructor(props){
     super(props)
 
-    if (!this.props.trip.trip.tripReturnDateTime){
+    if (!this.props.trip.tripReturnDateTime){
       this.props.setTripReturnDateTime(String(new Date()));
     }
   }
@@ -50,7 +50,7 @@ export default class EndTrip extends Component {
            Return Date:
           </Text>
           <DatePickerIOS
-            date={new Date(this.props.trip.trip.tripReturnDateTime)}
+            date={new Date(this.props.trip.tripReturnDateTime)}
             mode="datetime"
             onDateChange={this.onDateChange}
           />        

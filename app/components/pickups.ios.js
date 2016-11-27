@@ -168,7 +168,7 @@ export default class PickUps extends Component {
               <MapView.Marker
                 key={marker.key}
                 identifier={marker.key}
-                image={mapIcon}
+                // image={mapIcon}
                 coordinate={marker.coordinate}
                 title={marker.title}
               />

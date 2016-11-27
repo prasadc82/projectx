@@ -41,3 +41,11 @@ export function setTripReturnDateTime(returnDate) {
     tripReturnDateTime: returnDate
   }
 }
+
+
+export function setTripPoint(location) {
+  return {
+    type: types.SET_TRIP_POINT,
+    tripPoint: location
+  }
+}

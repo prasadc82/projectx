@@ -60,11 +60,11 @@ function format(raw) {
 
 export default {
   geocodePosition(apiKey, position) {
-    if (!apiKey || !position || !position.lat || !position.lng) {
+    if (!apiKey || !position || !position.latitude || !position.longitude) {
       return Promise.reject(new Error("invalid apiKey / position"));
     }
 
-    return this.geocodeRequest(`${googleGeocodeUrl}?key=${apiKey}&latlng=${position.lat},${position.lng}`);
+    return this.geocodeRequest(`${googleGeocodeUrl}?key=${apiKey}&latlng=${position.latitude},${position.longitude}`);
   },
 
   geocodeAddress(apiKey, address) {

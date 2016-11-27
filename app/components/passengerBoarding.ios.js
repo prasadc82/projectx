@@ -6,64 +6,74 @@ import {
   View
 } from 'react-native';
 
-import Trip from './tripSelection.ios.js';
-import Passenger from './passengerBoarding.ios.js';
+import PassengerDetails from './passengerDetails.ios.js';
 import Branding from './branding.ios.js';
+import GoogleApi from './../lib/googleApi.js';
 
-export default class Home extends Component {
+export default class PassengerBoarding extends Component {
 
   constructor(props){
     super(props)
-    console.log('home props')
-    console.log(this.props)
   }
 
-  driverTripPage() {
-    this.props.setTripBy('DRIVER');
+  next() {
     this.props.navigator.push({
-        title: 'Trip Details',
-        component: Trip,
+        title: 'Passenger Details',
+        component: PassengerDetails,
         passProps: {...this.props}
     });
-  };
+  }
 
-  passengerTripPage() {
-    this.props.setTripType('PASSENGER');
-    this.props.navigator.push({
-        title: 'Passenger PickUp',
-        component: Passenger,
-        passProps: {...this.props}
-    });
+  currentLocation() {
+    console.log(navigator);
+    navigator.geolocation.getCurrentPosition(
+      (location) => {
+        GoogleApi.geocodePosition('AIzaSyDXt9TbRgjvXd_fq934ESi1-6jucbIIMdc', location.coords).then((response) => {
+          console.log('Passenger Point', response);
+          this.props.setTripPoint(response[0].formattedAddress);
+
+          this.next();
+        });
+      },
+      (error) => {
+        console.log(error);
+      }, 
+      { 
+         enableHighAccuracy: true,
+         timeout: 20000,
+         maximumAge: 1000
+      }
+    );
   }
 
   render() {
-    let user = 'Prasad';
+    let user = 'Lokesh';
 
     return (
       <View style={styles.outer}>
         <Branding/>
         <View style={styles.greeting}>
           <Text style={styles.greetingtext}>
-            Hello, {user}!
+            Hello, {user} Rider!
           </Text>
         </View>
         <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Are you the Driver or Passenger?
-          </Text>
           <TouchableOpacity
-            onPress={() => this.driverTripPage()}
-            >
-            <Text style={[styles.buttontext, styles.driver]}>
-              Driver
+            onPress={() => this.currentLocation()}
+           >
+            <Text style={styles.buttontext}>
+                Pick me up here!
             </Text>
           </TouchableOpacity>
+        <Text style={styles.or}>
+            Or
+        </Text>
           <TouchableOpacity
-            onPress={() => this.passengerTripPage()}
-            >
-          <Text style={[styles.buttontext, styles.passenger]}>
-            Passenger
-          </Text>
+           onPress={() => this.next()}
+           >
+            <Text style={styles.location}>
+                Different Location
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -84,11 +94,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 30,
     paddingRight: 30,
-    backgroundColor: '#33353a',
+    backgroundColor: '#62BF8E',
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: 1,
-    color: 'white',
+    borderRadius: 5,
+    color: 'black',
   },
   greeting: {
     flex: 0.25,
@@ -104,18 +115,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  driver: {
+  or: {
     marginBottom: 25,
     marginTop: 25,
-    width: 165,
-  },
-  passenger: {
-    backgroundColor: '#ccc9c9',
-    color: '#33353a'
-  },
-  welcome: {
     fontSize: 20,
-    textAlign: 'auto',
-    margin: 10,
+  },
+  location: {
+    backgroundColor: '#ccc9c9',
+    color: '#33353a',
+    textDecorationLine: 'underline',
+    fontSize: 20,
   },
 });
