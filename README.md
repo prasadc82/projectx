@@ -8,10 +8,12 @@
   - Install HomeBrew
   - Install XCode
   - Install Node ( `brew install node` )
+  - Install watchman ( `brew install watchman` )
 
 ### project specific
   - cd projectx
   - run `npm install`
+  - run `npm install -g react-native-cli`
 
 ### running on simulator ( IOS )
   - cd projectx
